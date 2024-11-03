@@ -2,20 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.input {
+  @apply px-4 pl-10 py-2 text-gray-600 font-medium border
+  border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a4a4a4];
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.button {
+  @apply py-2 px-4 bg-[#405fff] text-white rounded-lg font-semibold hover:bg-[#4260f5];
+}
+
+.removeButton {
+    @apply text-[#db2929] text-sm rounded-lg font-semibold ;
+}
+
+.createButton {
+  @apply py-2 px-2 bg-[#fff] text-[#405fff] rounded-lg font-bold 
+  border border-gray-200 hover:bg-[#405fff] hover:text-white;
+}
+
+.error {
+  @apply w-fit mt-2 text-red-500 bg-red-500/20 rounded-full text-sm py-1 px-3;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
 }
