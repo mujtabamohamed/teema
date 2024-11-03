@@ -1,15 +1,16 @@
-import { connectMongoDB } from "@/lib/monogodb"
-import Team from "@/models/team";
 import { NextResponse } from "next/server";
 
+import { connectMongoDB } from "@/lib/monogodb"
+import Team from "@/models/team";
+
 export async function POST(req: Request, context: { params: { teamId: string } }) {
-    const { teamId } = context.params;  // Direct access without promise
-    const { userId } = await req.json(); // Get the userId from the request body
+    const { teamId } = context.params;  
+    const { userId } = await req.json(); 
 
     try {
         await connectMongoDB();
 
-        const team = await Team.findById(teamId); // Find the team by ID
+        const team = await Team.findById(teamId); 
 
         if (!team) {
             return NextResponse.json(
@@ -30,8 +31,11 @@ export async function POST(req: Request, context: { params: { teamId: string } }
         team.members.push(userId);
         await team.save();
 
-        await team.populate("members", "name _id"); // Populate the members to get updated team data
-        return NextResponse.json({ team }, { status: 200 });
+        // Populate the members to get updated team data
+        await team.populate("members", "name _id"); 
+        return NextResponse.json(
+            { team }, 
+            { status: 200 });
 
     } catch (error) {
         console.error("Error adding member:", error);

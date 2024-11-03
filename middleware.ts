@@ -4,4 +4,4 @@ export const config = {
     matcher: [
         "/teams/:path*",
     ]
-     }
+}

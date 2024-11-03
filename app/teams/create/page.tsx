@@ -1,5 +1,6 @@
-import TeamForm from '@/components/TeamForm'
 import React from 'react'
+
+import TeamForm from '@/components/TeamForm'
 
 const page = () => {
   return (

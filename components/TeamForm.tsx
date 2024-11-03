@@ -1,6 +1,5 @@
 "use client";
 
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -66,22 +65,19 @@ const TeamForm = () => {
 
   return (
         <Layout>
-
-            {/* Header */}
             <div className="border-b px-4 sm:px-6">
                 <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-700">
                     Create Team
                 </h1>
             </div>
 
-            {/* Form Container */}
             <div className="p-4 sm:p-6">
                 <div className="w-full max-w-2xl mx-auto">
                     <div className="rounded-lg border border-gray-200 p-4 sm:p-6 lg:p-8 
                         my-2 sm:my-3 space-y-2 flex flex-col bg-white">
                         
                         <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:gap-4'>
-                            {/* Team Name Input */}
+
                             <div className="relative">
                                 <RiTeamFill className="absolute left-3 top-1/2 transform -translate-y-1/2 
                                     text-gray-500 text-base sm:text-lg" />
@@ -94,12 +90,10 @@ const TeamForm = () => {
                                     type='text'
                                     className={`input w-full text-sm sm:text-base py-2 sm:py-3 pl-10`}
                                     placeholder='Team Name' 
-                                    
                                     required
                                 />
                             </div>
 
-                            {/* Create Button */}
                             <button 
                                 className='button w-full sm:w-auto mt-2 sm:mt-4 text-sm sm:text-base 
                                 py-2 sm:py-3 flex items-center justify-center'
@@ -114,7 +108,6 @@ const TeamForm = () => {
                                 )}
                             </button>
                             
-                            {/* Error Message */}
                             {error && (
                                 <div className='error text-sm sm:text-base p-2 sm:p-3'>
                                     {error}

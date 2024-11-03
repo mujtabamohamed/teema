@@ -76,10 +76,11 @@ const SignUpForm = () => {
 
   return (
     <div className='flex flex-col lg:flex-row min-h-screen bg-[#ffffff]'>
-    {/* Left Section - now shows on mobile as a smaller header */}
-        <div className="h-32 lg:h-auto lg:w-2/4 bg-gradient-to-r from-[#405fff] to-[#1d40f1] flex items-center justify-center">
+        <div className="h-32 lg:h-auto lg:w-2/4 bg-gradient-to-r 
+            from-[#405fff] to-[#1d40f1] flex items-center justify-center">
             <div className="text-center">
-                <h1 className="text-white text-4xl lg:text-7xl font-extrabold tracking-wider">
+                <h1 className="text-white text-4xl lg:text-7xl 
+                    font-extrabold tracking-wider">
                     WECOMMIT
                 </h1>
                 <p className="text-gray-200 mt-2 lg:mt-4 text-sm lg:text-2xl">
@@ -88,13 +89,15 @@ const SignUpForm = () => {
             </div>
         </div>
 
-        {/* Right Section - adjusted padding and width for mobile */}
-        <div className='flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 w-full lg:w-2/4'>
+        <div className='flex flex-col justify-center items-center p-4 
+            sm:p-6 lg:p-8 w-full lg:w-2/4'>
             <div className="w-full max-w-sm px-4 sm:px-0">
-                <h1 className='text-xl lg:text-2xl font-bold text-center text-gray-700 mb-2 lg:mb-4'>
+                <h1 className='text-xl lg:text-2xl font-bold 
+                    text-center text-gray-700 mb-2 lg:mb-4'>
                     Hello There!
                 </h1>
-                <p className="text-gray-500 text-sm lg:text-base text-center mb-4 lg:mb-6">
+                <p className="text-gray-500 text-sm lg:text-base 
+                    text-center mb-4 lg:mb-6">
                     Enter your details to access your account
                 </p>   
 
@@ -146,7 +149,8 @@ const SignUpForm = () => {
                         disabled={isLoading}>
                         {isLoading ? (
                             <div className="flex items-center gap-2">
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                <div className="animate-spin rounded-full 
+                                    h-5 w-5 border-b-2 border-white"></div>
                                 <span>Signing up...</span>
                             </div>
                         ) : (
@@ -164,7 +168,10 @@ const SignUpForm = () => {
                     
                     <div className="flex justify-center">
                         <Link className='text-xs lg:text-sm mt-2 lg:mt-3 text-right' href={'/'}>
-                            Already have an account? <span className='hover:underline text-[#405fff] font-bold'>Sign In</span>
+                            Already have an account? 
+                            <span className='hover:underline text-[#405fff] font-bold'>
+                                Sign In
+                            </span>
                         </Link>
                     </div>
                 </form>
@@ -174,4 +181,4 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm
+export default SignUpForm;

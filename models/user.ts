@@ -1,3 +1,4 @@
+
 import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
@@ -24,15 +25,9 @@ const userSchema = new Schema({
         required: [true, "Please provide your password"],
     },
 
-    teams: [
-        { 
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Team' 
-        }
-    ]
 },
 { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User ?? mongoose.model("User", userSchema);
 export default User;

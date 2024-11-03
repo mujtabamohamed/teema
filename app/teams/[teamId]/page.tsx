@@ -1,12 +1,15 @@
 "use client"
+
+import React,{ useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/Loader";
 import ErrorPopup from "@/components/ErrorPopup";
+
 import { IoSearchOutline, IoWarningOutline } from "react-icons/io5";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 interface Team {
     _id: string;
@@ -28,22 +31,20 @@ interface User {
 const TeamDetail = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
+    const { teamId } = useParams();
 
     const [team, setTeam] = useState<Team | null>(null);
     const [users, setUsers] = useState<User[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
     const [loadingMembers, setLoadingMembers] = useState<{ [key: string]: boolean }>({});
     const [loadingAddMembers, setLoadingAddMembers] = useState<{ [key: string]: boolean }>({});
-    const [showError, setShowError] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [showError, setShowError] = useState(false);
     const [error, setError] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
-
-    const { teamId } = useParams();
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -72,15 +73,18 @@ const TeamDetail = () => {
                     setError(data.message);
                     setShowError(true);
                     setIsAuthorized(false);
+
                 } else {
                     setTeam(data.team);
                     setIsAuthorized(true);
                 }
+
             } catch (error) {
                 console.error("Error fetching team:", error);
                 setError("Failed to fetch team details");
                 setShowError(true);
                 setIsAuthorized(false);
+
             } finally {
                 setIsLoading(false);
             }
@@ -94,6 +98,7 @@ const TeamDetail = () => {
                 const data = await response.json();
                 setUsers(data.users);
                 setFilteredUsers(data.users);
+
             } catch (error) {
                 console.error("Error fetching users:", error);
                 setError("Failed to fetch users");
@@ -128,15 +133,18 @@ const TeamDetail = () => {
                 const teamResponse = await fetch(`/api/teams/${teamId}`);
                 const teamData = await teamResponse.json();
                 setTeam(teamData.team);
+
             } else {
                 const errorData = await response.json();
                 setError(errorData.message);
                 setShowError(true);
             }
+
         } catch (error) {
             console.error("Error adding member:", error);
             setError("Failed to add member");
             setShowError(true);
+
         } finally {
             setLoadingAddMembers(prev => ({ ...prev, [userId]: false }));
         }
@@ -155,15 +163,18 @@ const TeamDetail = () => {
                 const teamResponse = await fetch(`/api/teams/${teamId}`);
                 const teamData = await teamResponse.json();
                 setTeam(teamData.team);
+
             } else {
                 const data = await response.json();
                 setError(data.message);
                 setShowError(true);
             }
+
         } catch (error) {
             console.error("Error removing member:", error);
             setError("Failed to remove member");
             setShowError(true);
+
         } finally {
             setLoadingMembers(prev => ({ ...prev, [userId]: false }));
         }
@@ -178,6 +189,7 @@ const TeamDetail = () => {
             </Layout>
         );
     }
+
     if (!isAuthorized) {
         return (
             <Layout>
@@ -216,7 +228,8 @@ const TeamDetail = () => {
             {team ? (
                 <div className="border-b px-4 sm:px-6 flex items-start relative">
                     <div className="flex items-center space-x-4 mb-2">
-                        <div className="w-8 sm:w-10 h-8 sm:h-10 bg-[#4f6bfb] border border-[#6780ff] rounded-lg flex items-center justify-center">
+                        <div className="w-8 sm:w-10 h-8 sm:h-10 bg-[#4f6bfb] 
+                            border border-[#6780ff] rounded-lg flex items-center justify-center">
                             <div className="text-sm sm:text-lg text-white font-bold">{team.teamName?.[0]}</div>
                         </div>
                         <h1 className="text-xl sm:text-2xl font-bold text-gray-700">{team.teamName}</h1>
@@ -235,7 +248,7 @@ const TeamDetail = () => {
 
                         <ul className="w-full">
                             {team.members.map((member) => ( 
-                                <li className="w-full sm:max-w-[360px] rounded-lg border font-semibold border-gray-200 
+                                <li className="w-full sm:max-w-[400px] rounded-lg border font-semibold border-gray-200 
                                     px-3 sm:px-4 py-3 sm:py-4 mb-4 flex justify-between items-start bg-gray-100 relative"
                                     key={member._id}>
                                     <div className="w-8 sm:w-10 h-8 sm:h-10 bg-[#232323] rounded-full flex 
@@ -272,7 +285,7 @@ const TeamDetail = () => {
                     <h2 className="font-semibold text-lg sm:text-[20px] text-gray-700 mb-4 sm:mb-6">
                         All Employees
                     </h2>
-                    <div className="relative w-full sm:max-w-[360px] mb-6">
+                    <div className="relative w-full sm:max-w-[400px] mb-6">
                         <IoSearchOutline 
                             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" 
                         />
@@ -281,14 +294,17 @@ const TeamDetail = () => {
                             placeholder="Search employees..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full input pl-10 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#405fff] focus:border-transparent"
+                            className="w-full input pl-10 sm:py-2 border border-gray-300 
+                                rounded-md focus:outline-none focus:ring-2 focus:ring-[#405fff] 
+                                focus:border-transparent"
                         />
                     </div>
 
                     <ul className="w-full">
                         {filteredUsers.map((user) => (
-                            <li className="w-full sm:max-w-[360px] rounded-lg border font-semibold border-gray-200 
-                                px-3 sm:px-4 py-3 sm:py-4 mb-4 flex justify-between items-start bg-gray-100 relative"
+                            <li className="w-full sm:max-w-[400px] rounded-lg border font-semibold 
+                                border-gray-200 px-3 sm:px-4 py-3 sm:py-4 mb-4 flex justify-between 
+                                items-start bg-gray-100 relative"
                                 key={user._id}>
                                 <div className="w-8 sm:w-10 h-8 sm:h-10 bg-[#232323] rounded-full flex 
                                     items-center justify-center mr-2 text-white text-sm sm:text-base">
@@ -307,7 +323,8 @@ const TeamDetail = () => {
                                     disabled={loadingAddMembers[user._id]}>
                                     {loadingAddMembers[user._id] ? (
                                         <div className="flex items-center gap-1">
-                                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-green-600"></div>
+                                            <div className="animate-spin rounded-full h-3 w-3 
+                                                border-b-2 border-green-600"></div>
                                             <span>Adding...</span>
                                         </div>
                                     ) : (
