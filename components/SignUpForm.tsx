@@ -81,10 +81,10 @@ const SignUpForm = () => {
             <div className="text-center">
                 <h1 className="text-white text-4xl lg:text-7xl 
                     font-extrabold tracking-wider">
-                    WECOMMIT
+                    TEEMA
                 </h1>
                 <p className="text-gray-200 mt-2 lg:mt-4 text-sm lg:text-2xl">
-                contributes to business growth using AI
+                    Team and Employee Management Application
                 </p>
             </div>
         </div>

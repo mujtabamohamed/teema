@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "WeCommit",
-  description: "Contributes to business growth using AI",
+  title: "Teema",
+  description: "Team and Employee Management Application",
 };
 
 export default function RootLayout({

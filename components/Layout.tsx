@@ -11,10 +11,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <div className="flex flex-col lg:flex-row h-screen">
             <div className="w-full lg:w-[320px] border-b lg:border-r flex flex-col bg-white">
-                <div className="p-4 border-b flex items-center justify-between">
+                <div className="p-3.5 border-b flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <h2 className="font-extrabold text-xl sm:text-2xl">
-                            WE<span className="text-[#405fff]">C</span>OMMIT</h2>
+                        <h2 className="font-extrabold sm:ml-4 text-xl sm:text-3xl">
+                            TE<span className="text-[#405fff]">E</span>MA</h2>
                     </div>
                 </div>
     
