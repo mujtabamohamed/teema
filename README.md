@@ -1,6 +1,6 @@
-# WeCommit - Team Management Platform
+# TEEMA - Team Management Platform
 
-WeCommit is a modern team management platform built with Next.js 15, TypeScript, and MongoDB. It provides a secure and intuitive interface for managing teams and team members within an organization.
+Teema is a modern team management platform built with Next.js 15, TypeScript, and MongoDB. It provides a secure and intuitive interface for managing teams and team members within an organization.
 
 ## Output
 
@@ -76,4 +76,3 @@ Key dependencies include:
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-```
