@@ -3,8 +3,7 @@
 Teema is a modern team management platform built with Next.js 15, TypeScript, and MongoDB. It provides a secure and intuitive interface for managing teams and team members within an organization.
 
 ## Output
-https://github.com/yourusername/teema/assets/Teema-Video.mp4
-
+![Teema Demo](./assets/Teema-video.gif)
 
 ## 🚀 Features
 
