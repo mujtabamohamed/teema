@@ -3,11 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/monogodb";
 import User from "@/models/user";
 
+// Export POST handler to check if user exists
 export async function POST(req: NextRequest) {
     try { 
         await connectMongoDB();
+
+        // Extract email and username from request body
         const { email, username } = await req.json();
         
+        // Find user by email or username
+        // $or operator allows checking multiple conditions
         const user = await User.findOne(
             { $or: [
                 { email }, 

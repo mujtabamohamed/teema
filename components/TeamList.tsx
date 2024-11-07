@@ -10,7 +10,7 @@ import { MdAdd } from "react-icons/md";
 import LoadingSpinner from "./Loader";
 import Layout from "./Layout";
 
-
+// Define Team interface
 interface Team {
     _id: string;
     teamName: string;
@@ -22,12 +22,14 @@ interface Team {
 
 const TeamList = () => {
 
+    // State for teams and loading state
     const [teams, setTeams] = useState<Team[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [filteredTeams, setFilteredTeams] = useState<Team[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
 
+    // Fetch teams from API
     useEffect(() => {
         const fetchTeams = async () => {
             
@@ -68,6 +70,7 @@ const TeamList = () => {
         );
     }
 
+    // Extract team IDs from teams array
     const teamListId = [teams.map((team: any) => (team._id))]
     console.log("Team Id: ", teamListId)
 

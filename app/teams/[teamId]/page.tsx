@@ -11,6 +11,7 @@ import ErrorPopup from "@/components/ErrorPopup";
 
 import { IoSearchOutline, IoWarningOutline } from "react-icons/io5";
 
+// Define Team interface
 interface Team {
     _id: string;
     teamName: string;
@@ -22,6 +23,7 @@ interface Team {
     }[];
 }
 
+// Define User interface
 interface User {
     _id: string;
     name: string;
@@ -29,8 +31,12 @@ interface User {
 }
 
 const TeamDetail = () => {
+
+    // Get authentication session and status
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    // Get teamId from route parameters
     const { teamId } = useParams();
 
     const [team, setTeam] = useState<Team | null>(null);
@@ -46,12 +52,14 @@ const TeamDetail = () => {
     const [error, setError] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
 
+    // Redirect to home page if user is not authenticated
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push('/');
         }
     }, [status, router]);
 
+    // Show loading spinner while session is loading
     if (status === 'loading') {
         return (
             <Layout>
@@ -62,13 +70,17 @@ const TeamDetail = () => {
         );
     }
 
+    // Fetch team details and users
     useEffect(() => {
+
+        // Fetch team details
         const fetchTeam = async () => {
             try {
                 setIsLoading(true);
                 const response = await fetch(`/api/teams/${teamId}`);
                 const data = await response.json();
 
+                // Handle unauthorized access
                 if (response.status === 403) {
                     setError(data.message);
                     setShowError(true);
@@ -90,6 +102,7 @@ const TeamDetail = () => {
             }
         };
 
+        // Fetch all users
         const fetchUsers = async () => {
             if (!isAuthorized) return;
 
@@ -106,12 +119,14 @@ const TeamDetail = () => {
             }
         };
 
+        // Fetch team details and users if teamId is available
         if (teamId) {
             fetchTeam();
             fetchUsers();
         }
     }, [teamId, isAuthorized]);
 
+    // Filter users based on search query
     useEffect(() => {
         const filtered = users.filter(user =>
             user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -120,8 +135,11 @@ const TeamDetail = () => {
         setFilteredUsers(filtered);
     }, [searchQuery, users]);
 
+    // Add member to team
     const addMember = async (userId: string) => {
         try {
+
+            // Set loading state for adding member
             setLoadingAddMembers(prev => ({ ...prev, [userId]: true }));
             const response = await fetch(`/api/teams/${teamId}/addMember`, {
                 method: "POST",
@@ -130,6 +148,8 @@ const TeamDetail = () => {
             });
 
             if (response.ok) {
+
+                // Refresh team data after successful addition
                 const teamResponse = await fetch(`/api/teams/${teamId}`);
                 const teamData = await teamResponse.json();
                 setTeam(teamData.team);
@@ -146,12 +166,16 @@ const TeamDetail = () => {
             setShowError(true);
 
         } finally {
+            // Reset loading state for adding member
             setLoadingAddMembers(prev => ({ ...prev, [userId]: false }));
         }
     };
 
+    // Function to emove member from team
     const removeMember = async (userId: string) => {
         try {
+            
+            // Set loading state for removing member
             setLoadingMembers(prev => ({ ...prev, [userId]: true }));
             const response = await fetch(`/api/teams/${teamId}/removeMember`, {
                 method: "DELETE",

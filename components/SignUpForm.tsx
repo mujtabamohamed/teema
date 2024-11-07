@@ -7,6 +7,7 @@ import { FaUser, FaEnvelope, FaAt, FaLock } from 'react-icons/fa';
 
 const SignUpForm = () => {
 
+    // State for form inputs
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -22,12 +23,14 @@ const SignUpForm = () => {
         setIsLoading(true);
         setError("");
 
+        // Validate all fields are filled
         if (!name || !email || !username || !password) {
             setError("All fields are necessary.");
             return;
         }
 
         try {
+            // Check if user with email or username already exists
             const resUserExists = await  fetch("api/userExists", {
                 method: "POST",
                 headers: {
@@ -46,6 +49,7 @@ const SignUpForm = () => {
                 return;
             }
 
+            // Create new user
             const res = await fetch("api/sign-up", {
                 method: "POST",
                 headers: {

@@ -9,6 +9,7 @@ import { FaEnvelope, FaLock } from 'react-icons/fa';
 
 const LoginForm = () => {
 
+     // State for form inputs
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -21,16 +22,21 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
+
+            // Attempt to sign in using NextAuth credentials provider
             const res = await signIn('credentials', {
                 email,
                 password,
                 redirect: false,
             });
 
+            // Handle authentication error
             if(res?.error){
                 setError("Invalid credentials, please try again.");
                 return;
             }
+        
+            // Redirect to teams page on success
             router.replace("teams");
             console.log(error);
 

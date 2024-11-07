@@ -10,30 +10,35 @@ import { RiTeamFill } from 'react-icons/ri';
 
 const TeamForm = () => {
 
+    // State for form input
     const [teamName, setTeamName] = useState("");
     const [error, setError] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
     const [isDuplicate, setIsDuplicate] = useState(false);
     
+    // Get user session and router
     const { data: session } = useSession();
     const router = useRouter();
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
-        
+
+        // Validate team name is provided
         if (!teamName) {
             setError("All fields are necessary.");
             return;
         }
 
+        // Check if user is authenticated
         if (!session || !session.user) {
             setError("You need to be logged in to create a team.");
             return;
         }
         
         try {
+            // Create new team
             const res = await fetch("/api/teams/create", {
                 method: "POST",
                 headers: {
@@ -53,7 +58,8 @@ const TeamForm = () => {
                 }
                 return;
             }
-
+            
+            // Redirect to teams page on success
             router.push("/teams");
             router.refresh();
         } catch (error) {

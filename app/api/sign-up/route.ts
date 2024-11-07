@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { connectMongoDB } from "@/lib/monogodb";
 import User from "@/models/user";
 
+// POST request handler for user registration
 export async function POST(req: NextRequest){
     try {
         const body = await req.json();
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest){
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create user
+        // Create new user in database with hashed password
         await User.create({ 
             name, 
             email, 
